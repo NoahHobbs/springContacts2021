@@ -17,7 +17,7 @@ public class WebController {
 	ContactRepository repo;
 	
 	
-	@GetMapping("viewAll")
+	@GetMapping({"/", "viewAll"})
 	public String viewAllContacts(Model model) {
 		if(repo.findAll().isEmpty()) {
 			return addNewContact(model);
