@@ -4,7 +4,7 @@
 <title>Insert New Contact</title>
 </head>
 <body>
-<form th:object="${newContact}" th:action="@{/inputContact}"method='POST'>
+<form th:object="${newContact}" th:action="@{/update/{id}(id=${newContact.id})}"method='POST'>
 Name: <input name="name" size="20" th:field="*{name}"> <br />
 Relationship: <input name="relationship" size="10" th:field="*{relationship}"><br />
 Phone Number: <input name="phone" size="20" th:field="*{phone}"><br />

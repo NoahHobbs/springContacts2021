@@ -17,10 +17,13 @@ public class WebController {
 	ContactRepository repo;
 	
 	
-	@GetMapping("/viewAll")
+	@GetMapping("viewAll")
 	public String viewAllContacts(Model model) {
-		model.addAttribute("contacts", repo.findAll());
-		return "results ";
+		if(repo.findAll().isEmpty()) {
+			return addNewContact(model);
+		}
+		model.addAttribute("contacts",repo.findAll());
+		return "results";
 	}
 	
 	@GetMapping("/inputContact")
@@ -38,7 +41,7 @@ public class WebController {
 	
 	@GetMapping("/edit/{id}")
 	public String showUpdateContact(@PathVariable("id") long id, Model model) {
-		Contact c  = repo.findAllById(id).orElse(null);
+		Contact c  = repo.findById(id).orElse(null);
 		model.addAttribute("newContact", c);
 		return "input";
 	}
@@ -48,6 +51,14 @@ public class WebController {
 		repo.save(c);
 		return viewAllContacts(model);
 	}
+	
+	@GetMapping("/delete/{id}")
+	public String deleteUser(@PathVariable("id") long id, Model model) {
+		Contact c = repo.findById(id).orElse(null);
+		repo.delete(c);
+		return viewAllContacts(model);
+	}
+	
 }
 
 
