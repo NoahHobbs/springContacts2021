@@ -13,6 +13,7 @@
 			<td th:text="${currentContact.address.street}"/>
 			<td th:text="${currentContact.address.city}"/>
 			<td th:text="${currentContact.address.state}"/>
+			<td> <a th:href="@{/edit{id}(id=${currentContact.id})}"> Edit</a></td>
 		</tr>
 	</table>
 </form>

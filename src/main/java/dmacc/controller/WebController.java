@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import dmacc.beans.Contact;
@@ -35,6 +36,18 @@ public class WebController {
 		return viewAllContacts(model);
 	}
 	
+	@GetMapping("/edit/{id}")
+	public String showUpdateContact(@PathVariable("id") long id, Model model) {
+		Contact c  = repo.findAllById(id).orElse(null);
+		model.addAttribute("newContact", c);
+		return "input";
+	}
+	
+	@PostMapping("/update/{id}")
+	public String reviseContact(Contact c, Model model) {
+		repo.save(c);
+		return viewAllContacts(model);
+	}
 }
 
 
